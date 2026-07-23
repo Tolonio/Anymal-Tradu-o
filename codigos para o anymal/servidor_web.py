@@ -1,5 +1,5 @@
-from flask import Flask, render_template, send_file, request, abort, jsonify
-import os
+from flask import Flask, render_template, send_file, request, abort, jsonify #tilizado para criar o servidor HTTP e gerir as rotas (URLs) do painel de controle
+import os #navegação nas pastas do SSD do ANYmal
 from processador_relatorio import (
     gerar_relatorio_nativo, 
     listar_diretorio_nativo, 

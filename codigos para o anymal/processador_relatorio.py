@@ -1,20 +1,18 @@
-import xml.etree.ElementTree as ET
-import lxml.etree as lxml_ET
+import xml.etree.ElementTree as ET #biblioteca para abrir o report.xml e conseguir manipular ele na memoria e fundir com o stylesheet.xsl que gera o html
+import lxml.etree as lxml_ET #biblioteca para abrir o report.xml e conseguir manipular ele na memoria e fundir com o stylesheet.xsl que gera o html
 from deep_translator import GoogleTranslator
-from weasyprint import HTML, CSS
+from weasyprint import HTML, CSS #renderização de HTML/CSS para PDF
 from PIL import Image  # Biblioteca para manipulação e compressão de imagens
-import os
-import io
-import json
-import zipfile
-import re
-import unicodedata
-import pathlib
-from datetime import datetime, timedelta
+import os #navegação nas pastas do SSD do ANYmal
+import io #Permite que PDF, ZIP, Imagens sejam gerados inteiramente na memória RAM, sem desgastar o disco rígido com operações de escrita/leitura intermediárias.
+import json #Para gerir o ficheiro de cache das traduções locais
+import zipfile #Para comprimir todos os arquivos
+import re #biblioteca para evitar os acentos ou caracteres especiais nas fotos quando formos mudar o nome delas
+import unicodedata #biblioteca para evitar os acentos ou caracteres especiais nas fotos quando formos mudar o nome delas
+import pathlib #navegação nas pastas do SSD do ANYmal
+from datetime import datetime, timedelta #converter o UTC para o horário do Brasil = -3hrs o UTC horario de brasilia
 
-# ==============================================================================
-# CONFIGURAÇÕES E ESTADO GLOBAL (Para a barra de progresso do Flask)
-# ==============================================================================
+#barra de progresso
 PASTA_REMOTA = "/home/integration/.ros/reports"
 ARQUIVO_CACHE = 'cache_traducoes.json'
 
@@ -24,9 +22,7 @@ def atualizar_progresso(pct, msg):
     status_progresso["porcentagem"] = pct
     status_progresso["mensagem"] = msg
 
-# ==============================================================================
-# 0. CONFIGURAÇÃO DA PERSISTÊNCIA DE DADOS
-# ==============================================================================
+#persistencia dos dados
 def carregar_cache():
     if os.path.exists(ARQUIVO_CACHE):
         try:
@@ -38,9 +34,7 @@ def salvar_cache(cache_dados):
     with open(ARQUIVO_CACHE, 'w', encoding='utf-8') as f:
         json.dump(cache_dados, f, ensure_ascii=False, indent=4)
 
-# ==============================================================================
-# 1. DICIONÁRIO FIXO E UTILITÁRIOS
-# ==============================================================================
+#dicionário
 dicionario_anymal = {
     "Started mission": "Iniciou a missão", "Paused mission": "Missão pausada",
     "Resumed mission": "Missão retomada", "Navigating to": "Navegando para",
@@ -88,9 +82,7 @@ def listar_diretorio_nativo(caminho):
     itens.sort(key=lambda x: (not x['is_dir'], x['nome'].lower()))
     return itens
 
-# ==============================================================================
-# 2. MOTOR DE TRADUÇÃO INTELIGENTE
-# ==============================================================================
+#tradução com google
 def traduzir_mensagem(texto_original, tradutor_api, memoria_json):
     if not texto_original: return ""
     texto_traduzido = texto_original
@@ -111,9 +103,9 @@ def traduzir_mensagem(texto_original, tradutor_api, memoria_json):
         return traducao_api
     except Exception: return texto_original
 
-# ==============================================================================
-# 3. MOTOR PRINCIPAL: PDF + ZIP NATIVO (COMPRESSÃO EXTREMA)
-# ==============================================================================
+
+# COMPRESSÃO EXTREMA PDF + ZIP 
+
 def gerar_relatorio_nativo(caminho_missao):
     atualizar_progresso(10, "Lendo ficheiros da missão...")
     tradutor = GoogleTranslator(source='en', target='pt')
@@ -201,7 +193,7 @@ def gerar_relatorio_nativo(caminho_missao):
                 
         atualizar_progresso(30 + int((i/total_entradas)*30), f"Processando evento {i+1}/{total_entradas}...")
 
-    # --- ETAPA B: PREPARAÇÃO DO VISUAL E GERAÇÃO DO PDF COMPRIMIDO ---
+    #PREPARAÇÃO DO VISUAL E GERAÇÃO DO PDF COMPRIMIDO
     atualizar_progresso(65, "Preparando o design e montando o PDF final...")
     xml_str = ET.tostring(root, encoding='utf-8').decode('utf-8')
     
@@ -228,14 +220,14 @@ def gerar_relatorio_nativo(caminho_missao):
     html_result = transform(xml_lxml)
     html_content = str(html_result)
     
-    # A base do Weasyprint é fundamental para as fotos carregarem no PDF!
+    # Uso do weasyprint para as fotos carregarem no PDF
     url_base = pathlib.Path(caminho_missao).absolute().as_uri() + "/"
     pdf_memoria = io.BytesIO()
     
     # CSS com limite para a imagem não quebrar a tabela
     CSS_PAGINA = CSS(string='@page { size: A4 landscape; margin: 1cm; } img { max-width: 100%; height: auto; max-height: 300px; }')
     
-    # GERA O PDF COM COMPRESSÃO MÁXIMA ATIVADA
+    # GERA O PDF COM COMPRESSÃO MÁXIMA
     HTML(string=html_content, base_url=url_base).write_pdf(
         pdf_memoria, 
         stylesheets=[CSS_PAGINA],
@@ -243,7 +235,7 @@ def gerar_relatorio_nativo(caminho_missao):
         optimize_size=('images', 'fonts') # Remove metadados inúteis do PDF
     )
 
-    # --- ETAPA C & D: CRIA O ZIP EM MEMÓRIA (COMPRESSÃO EXTREMA + RENOMEAÇÃO DA PASTA) ---
+    # Criar o zip EM MEMÓRIA compressão EXTREMA + renomeação da pasta
     atualizar_progresso(85, "Empacotando relatório e imagens otimizadas...")
     
     zip_memoria = io.BytesIO()
@@ -263,9 +255,9 @@ def gerar_relatorio_nativo(caminho_missao):
                     # Pega o novo nome inteligente (se existir) ou mantém o relativo
                     novo_nome = mapa_renomeio.get(caminho_relativo, caminho_relativo)
                     
-                    # ==========================================
-                    # MAGIA AQUI: Troca a pasta "resources" por "imagens"
-                    # ==========================================
+                    
+                    # Troca a pasta "resources" por "imagens"
+                    
                     if novo_nome.startswith('resources/'):
                         novo_nome = novo_nome.replace('resources/', 'imagens/', 1)
                     

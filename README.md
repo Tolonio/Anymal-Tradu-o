@@ -14,11 +14,21 @@ Para criar o ambiente virtual vamos rodar:
 ```
 python -m venv venv
 ```
+A instalação precisa da versão libpangoft2-1.0-0 que não vem automatica, então vamos rodar:
+```
+sudo apt update
 
+sudo apt install -y \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    shared-mime-info
+```
 
 Utilizamos o flask para subir o html, deep-translator para tradução do xml, lxml para processar e ler o xml e o weasyprint para criarmos o pdf.
 ```
-python3 -m pip install flask deep-translator lxml weasyprint
+sudo python3 -m pip install flask deep-translator lxml weasyprint
 ```
 Quando importamos o Weasyprint o python instala a biblioteca Pillow que usamos para comprimir fotos e o cffi que permite que o python converse com o c e c++. Usamos também a biblioteca Jinja2 para ler o arquivo index.html e injetar dados do robô usando sintaxes como {{ caminho_atual }} ou {% for item in itens %}.
 

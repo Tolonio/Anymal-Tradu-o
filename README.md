@@ -10,6 +10,12 @@ templates/index.html – Interface: Apresenta os dados ao utilizador final e for
 
 Usamos o ambiente virtual visando não instalar nada no ambiente do robô para não prejudicar algum processo:
 
+Para criar o ambiente virtual vamos rodar:
+```
+python -m venv venv
+```
+
+
 Utilizamos o flask para subir o html, deep-translator para tradução do xml, lxml para processar e ler o xml e o weasyprint para criarmos o pdf.
 ```
 python3 -m pip install flask deep-translator lxml weasyprint

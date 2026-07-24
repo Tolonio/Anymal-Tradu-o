@@ -12,7 +12,7 @@ Usamos o ambiente virtual visando não instalar nada no ambiente do robô para n
 
 Para criar o ambiente virtual vamos rodar:
 ```
-python -m venv venv
+sudo python3 -m venv venv
 ```
 A instalação precisa da versão libpangoft2-1.0-0 que não vem automatica, então vamos rodar:
 ```

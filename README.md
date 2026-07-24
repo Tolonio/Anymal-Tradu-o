@@ -14,6 +14,13 @@ Para criar o ambiente virtual vamos rodar:
 ```
 sudo python3 -m venv venv
 ```
+
+Precisamos rodar o comando parar entrar no ambiente virtual para fazer a instalação das bibliotecas:
+
+```
+source venv/bin/activate
+```
+
 A instalação precisa da versão libpangoft2-1.0-0 que não vem automatica, então vamos rodar:
 ```
 sudo apt update

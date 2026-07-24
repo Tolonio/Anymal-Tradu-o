@@ -7,3 +7,9 @@ processador_relatorio.py – Contém toda a lógica pesada e as regras para trad
 servidor_web.py – Gere a comunicação de rede pela porta 5050 e recebe os pedidos HTTP.
 
 templates/index.html – Interface: Apresenta os dados ao utilizador final e fornece os botões de ação.
+
+Usamos o ambiente virtual visando não instalar nada no ambiente do robô para não prejudicar algum processo:
+
+Utilizamos o flask para subir o html, deep-translator para tradução do xml, lxml para processar e ler o xml e o weasyprint para criarmos o pdf.
+
+python3 -m pip install flask deep-translator lxml weasyprint

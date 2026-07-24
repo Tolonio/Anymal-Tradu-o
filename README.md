@@ -43,6 +43,69 @@ Depois rodamos o código para iniciar o servidor:
 ```
 python3 servidor_web.py
 ```
+
+Para criar o serviço para iniciar o servidor automaticamente segue o código:
+
+```
+sudo nano /etc/systemd/system/servidor_anymal.service
+```
+
+Código do nano:
+
+```
+[Unit]
+Description=Servidor Web do Tradutor ANYmal
+After=network.target
+
+[Service]
+Type=simple
+
+User=integration
+Group=integration
+
+WorkingDirectory=/home/integration/servidor_anymal
+
+Environment="PATH=/home/integration/servidor_anymal/venv/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/home/integration/servidor_anymal/venv/bin/python3 /home/integration/servidor_anymal/servidor_web.py
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+# 1. Recarrega os daemons do sistema para reconhecer o novo arquivo
+
+```
+sudo systemctl daemon-reload
+```
+
+# 2. Ativa o serviço para ligar automaticamente na inicialização do robô
+
+```
+sudo systemctl enable servidor_anymal.service
+```
+
+
+# 3. Dá a partida imediata no servidor (sem necessidade de reiniciar o robô)
+
+```
+sudo systemctl start servidor_anymal.service
+```
+
+
+
+# 4. Verifica o status do serviço e os logs de execução
+
+```
+sudo systemctl status servidor_anymal.service
+
+```
+
 Quando importamos o Weasyprint o python instala a biblioteca Pillow que usamos para comprimir fotos e o cffi que permite que o python converse com o c e c++. Usamos também a biblioteca Jinja2 para ler o arquivo index.html e injetar dados do robô usando sintaxes como {{ caminho_atual }} ou {% for item in itens %}.
 
 Werkzeug: gerencia a escuta da porta 5050, roteia os links e lida com a transferência de arquivos pesados

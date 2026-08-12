@@ -51,5 +51,5 @@ def traduzir_missao():
         return f"<h2>Erro de processamento:</h2><p>{str(e)}</p>", 500
 
 if __name__ == '__main__':
-    print("=== Servidor Nativo Iniciado na porta 5000 ===")
+    print("=== Servidor Nativo Iniciado na porta 5050 ===")
     app.run(host='0.0.0.0', port=5050, debug=False, threaded=True)

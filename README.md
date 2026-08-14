@@ -1,5 +1,4 @@
 # Anymal-Tradução
-API de tradução do anymal
 
 Ir para o Dowloads:
 

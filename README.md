@@ -66,6 +66,11 @@ python3 -m pip install flask deep-translator lxml weasyprint
 
 ```
 
+Rode:
+```
+cd codigos\para\o\anymal/:
+```
+
 Inicie o servidor:
 ```
 python3 servidor_web.py

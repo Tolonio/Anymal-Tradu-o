@@ -2,7 +2,12 @@
 API de tradução do anymal
 
 
-cd 
+Clonar o repositório:
+
+```
+git clone 
+```
+
 
 Rode o comando para criar o ambiente virtual:
 ```

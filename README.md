@@ -21,7 +21,7 @@ ssh integration@anymal-<nomedoanymal>-npc "mkdir -p /home/integration/servidor_a
 Use o scp -r para clonar todo os arquivos do git para o anymal:
 
 ```
-scp -r ./Anymal-Traducao/* integration@anymal-<nomedoanymal>-npc:/home/integration/servidor_anymal
+scp -r ./Anymal-Tradu-o/* integration@anymal-<nomedoanymal>-npc:/home/integration/servidor_anymal
 ```
 
 Acessar o ssh do anymal:

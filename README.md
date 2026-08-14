@@ -72,28 +72,26 @@ WantedBy=multi-user.target
 ```
 
 
-# 1. Recarrega os daemons do sistema para reconhecer o novo arquivo
+Reinicie o serviço:
 
 ```
 sudo systemctl daemon-reload
 ```
 
-# 2. Ativa o serviço para ligar automaticamente na inicialização do robô
+Rode o enable do serviço:
 
 ```
 sudo systemctl enable servidor_anymal.service
 ```
 
 
-# 3. Dá a partida imediata no servidor (sem necessidade de reiniciar o robô)
+Rodê o start do serviço:
 
 ```
 sudo systemctl start servidor_anymal.service
 ```
 
-
-
-# 4. Verifica o status do serviço e os logs de execução
+Isso é opcional para ver o status do serviço:
 
 ```
 sudo systemctl status servidor_anymal.service

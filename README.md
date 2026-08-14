@@ -4,7 +4,7 @@ API de tradução do anymal
 Ir para o Dowloads:
 
 ```
-cd Dowloads/
+cd Downloads/
 ```
 
 Clonar o repositório:
@@ -19,17 +19,12 @@ Use o scp -r para clonar todo os arquivos do git para o anymal:
 scp -r ./Anymal-Traducao integration@anymal-<nomedoanymal>-npc:/home/integration/servidor_anymal
 ```
 
-Caso a pasta não seja criada:
-
-```
-mkdir -p /home/integration/servidor_anymal
-```
-
 Acessar o ssh do anymal:
 
 ```
 ssh integration@anymal-<nomedoanymal>-npc
 ```
+
 
 Dentro do anymal navegue:
 
@@ -42,7 +37,7 @@ Rode o comando para criar o ambiente virtual:
 python3 -m venv venv
 ```
 
-Rode o comando para fazer a instalação das bibliotecas:
+Ativar o ambiente virtual:
 
 ```
 source venv/bin/activate

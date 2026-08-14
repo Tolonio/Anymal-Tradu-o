@@ -7,13 +7,35 @@ Ir para o Dowloads:
 cd Dowloads/
 ```
 
-
 Clonar o repositório:
 
 ```
 git clone https://github.com/Tolonio/Anymal-Tradu-o.git
+``` 
+
+Use o scp -r para clonar todo os arquivos do git para o anymal:
+
+```
+scp -r ./Anymal-Traducao integration@anymal-<nomedoanymal>-npc:/home/integration/servidor_anymal
 ```
 
+Caso a pasta não seja criada:
+
+```
+mkdir -p /home/integration/servidor_anymal
+```
+
+Acessar o ssh do anymal:
+
+```
+ssh integration@anymal-<nomedoanymal>-npc
+```
+
+Dentro do anymal navegue:
+
+```
+cd /home/integration/servidor_anymal
+```
 
 Rode o comando para criar o ambiente virtual:
 ```

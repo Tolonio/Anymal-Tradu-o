@@ -1,27 +1,21 @@
-# Anymal-Tradu-o
+# Anymal-Tradução
 API de tradução do anymal
-A API gira em torno de 3 arquivos:
 
-processador_relatorio.py – Contém toda a lógica pesada e as regras para tradução. Não interage com a rede.
 
-servidor_web.py – Gere a comunicação de rede pela porta 5050 e recebe os pedidos HTTP.
+cd 
 
-templates/index.html – Interface: Apresenta os dados ao utilizador final e fornece os botões de ação.
-
-Usamos o ambiente virtual visando não instalar nada no ambiente do robô para não prejudicar algum processo:
-
-Para criar o ambiente virtual vamos rodar SEM DAR COMANDO SUDO:
+Rode o comando para criar o ambiente virtual:
 ```
 python3 -m venv venv
 ```
 
-Precisamos rodar o comando parar entrar no ambiente virtual para fazer a instalação das bibliotecas:
+Rode o comando para fazer a instalação das bibliotecas:
 
 ```
 source venv/bin/activate
 ```
 
-A instalação precisa da versão libpangoft2-1.0-0 que não vem automatica, então vamos rodar:
+Rode:
 ```
 sudo apt update
 
@@ -33,24 +27,24 @@ sudo apt install -y \
     shared-mime-info
 ```
 
-Utilizamos o flask para subir o html, deep-translator para tradução do xml, lxml para processar e ler o xml e o weasyprint para criarmos o pdf.
+Instale:
 ```
 python3 -m pip install flask deep-translator lxml weasyprint
 
 ```
 
-Depois rodamos o código para iniciar o servidor:
+Inicie o servidor:
 ```
 python3 servidor_web.py
 ```
 
-Para criar o serviço para iniciar o servidor automaticamente segue o código:
+Criar o serviço:
 
 ```
 sudo nano /etc/systemd/system/servidor_anymal.service
 ```
 
-Código do nano:
+Cole:
 
 ```
 [Unit]

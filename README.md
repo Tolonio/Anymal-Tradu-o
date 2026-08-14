@@ -5,7 +5,7 @@ API de tradução do anymal
 Clonar o repositório:
 
 ```
-git clone 
+git clone https://github.com/Tolonio/Anymal-Tradu-o.git
 ```
 
 

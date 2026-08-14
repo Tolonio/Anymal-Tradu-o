@@ -1,6 +1,12 @@
 # Anymal-Tradução
 API de tradução do anymal
 
+Ir para o Dowloads:
+
+```
+cd Dowloads/
+```
+
 
 Clonar o repositório:
 

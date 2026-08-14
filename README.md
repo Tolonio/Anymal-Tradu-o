@@ -12,6 +12,12 @@ Clonar o repositório:
 git clone https://github.com/Tolonio/Anymal-Tradu-o.git
 ``` 
 
+Garantir que existe a pasta no anymal:
+
+```
+ssh integration@anymal-<nomedoanymal>-npc "mkdir -p /home/integration/servidor_anymal"
+```
+
 Use o scp -r para clonar todo os arquivos do git para o anymal:
 
 ```
